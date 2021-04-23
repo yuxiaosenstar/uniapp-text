@@ -3,7 +3,7 @@ import Vue from 'vue'
 export default Vue.extend({
   mpType: 'app',
   onLaunch() {
-    var sysdata = uni.getSystemInfoSync()
+    let sysdata:any = uni.getSystemInfoSync()
     // #ifndef MP
     Vue.prototype.StatusBar = sysdata.statusBarHeight
     if (sysdata.platform === 'android') {
