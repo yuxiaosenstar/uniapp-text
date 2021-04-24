@@ -55,6 +55,7 @@
     "@dcloudio/uni-quickapp-webview": "^2.0.0-27920200618002",
     "@dcloudio/uni-stat": "^2.0.0-27920200618002",
     "core-js": "^3.6.5",
+    "element-ui": "^2.15.1",
     "eslint-loader": "^4.0.2",
     "fant-ui": "^1.0.3",
     "flyio": "^0.6.2",

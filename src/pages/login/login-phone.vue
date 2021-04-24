@@ -7,24 +7,19 @@
     <view :class="['phonenumber', 'input-box', isNumberActive ? 'active' : '']">
       <view class="num">+86</view>
       <input
+        maxlength="11"
         @focus="isNumberActive = true"
         @blur="isNumberActive = false"
         v-model="phonenumber"
         type="number"
         placeholder="请输入手机号"
-        maxlength="11"
       />
       <view v-show="phonenumber" class="clear-btn" @click="clearInput('phonenumber')"></view>
     </view>
-    <view :class="['password', 'input-box', isPassActive ? 'active' : '']">
-      <input @focus="isPassActive = true" @blur="isPassActive = false" v-model="password" :password="isPass" placeholder="请输入密码" />
-      <view v-show="password" class="clear-btn" @click="clearInput('password')"></view>
-      <view :class="['eye', isPass ? 'close' : 'open']" @click="togglePass"></view>
-    </view>
-    <button @click="login" class="login-btn" :disabled="!(phonenumber && password)">登录</button>
+    <button @click="login" class="login-btn" :disabled="phonenumber.length < 11">获取短信验证码</button>
     <view class="phone-code-login">
-      <navigator url="./login-phone">
-        <text>手机验证码登录</text>
+      <navigator url="./login">
+        <text>账号密码登录</text>
       </navigator>
     </view>
     <view class="footer">
@@ -39,9 +34,7 @@ export default {
     return {
       isPass: true,
       phonenumber: '',
-      password: '',
-      isNumberActive: false,
-      isPassActive: false
+      isNumberActive: false
     }
   },
   methods: {
@@ -53,7 +46,7 @@ export default {
     },
     login() {
       uni.navigateTo({
-        url: '../index/index'
+        url: '../login/login-message-code'
       })
     }
   }
