@@ -62,8 +62,8 @@ export default {
     min-width: 180rpx;
     box-sizing: border-box;
     padding: 30rpx;
-    top: 50vh;
-    left: 375rpx;
+    top: 40vh;
+    left: 290rpx;
     transform: translate(-50%, -50%);
     color: #ffffff;
     background-color: #53565e;

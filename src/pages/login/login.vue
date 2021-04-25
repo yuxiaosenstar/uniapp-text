@@ -1,5 +1,6 @@
 <template>
   <view class="container">
+    <hd-toast />
     <view class="title">
       <view>欢迎使用联华鲸采</view>
       <view>团购小程序</view>
@@ -34,6 +35,7 @@
 </template>
 
 <script>
+import { login } from '@/api/login'
 export default {
   data() {
     return {
@@ -45,16 +47,36 @@ export default {
     }
   },
   methods: {
+    /**
+     * 切换密码框显示
+     */
     togglePass() {
       this.isPass = !this.isPass
     },
+    /**
+     * 清楚输入框
+     */
     clearInput(input) {
       this[input] = ''
     },
+    /**
+     * 登录
+     */
     login() {
-      uni.navigateTo({
-        url: '../index/index'
+      login({
+        mobile: this.phonenumber,
+        password: this.password
       })
+        .then(res => {
+          uni.switchTab({
+            url: '/pages/user/user'
+          })
+        })
+        .catch(res => {
+          this.$showToast({
+            title: res.message
+          })
+        })
     }
   }
 }

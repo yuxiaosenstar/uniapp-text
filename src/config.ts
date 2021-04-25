@@ -7,7 +7,7 @@ const devConfig = {
   memberId: '',
   openId: '',
   // https环境
-  baseUrl: 'https://daojia-test.hd123.com:9999',
+  baseUrl: 'https://essp-test.lhhspay.com.cn',
   // 微信的appid
   wxAppid: 'wx9d2b7509cfe7fa90'
 }

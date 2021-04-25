@@ -16,7 +16,7 @@
       />
       <view v-show="phonenumber" class="clear-btn" @click="clearInput('phonenumber')"></view>
     </view>
-    <button @click="login" class="login-btn" :disabled="phonenumber.length < 11">获取短信验证码</button>
+    <button @click="toCode" class="login-btn" :disabled="phonenumber.length < 11">获取短信验证码</button>
     <view class="phone-code-login">
       <navigator url="./login">
         <text>账号密码登录</text>
@@ -38,15 +38,24 @@ export default {
     }
   },
   methods: {
+    /**
+     * 切换密码框显示
+     */
     togglePass() {
       this.isPass = !this.isPass
     },
+    /**
+     * 清楚输入框
+     */
     clearInput(input) {
       this[input] = ''
     },
-    login() {
+    /**
+     * 跳转到获取验证码页面
+     */
+    toCode() {
       uni.navigateTo({
-        url: '../login/login-message-code'
+        url: `../login/login-message-code?phonenumber=${this.phonenumber}`
       })
     }
   }

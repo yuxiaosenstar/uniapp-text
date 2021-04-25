@@ -1,33 +1,50 @@
 {
   "pages": [
     {
-      "path": "pages/login/login",
-      "style": {
-        "navigationBarTitleText": ""
-      }
-    },{
-      "path": "pages/login/login-phone",
-      "style": {
-        "navigationBarTitleText": ""
-      }
+      "path": "pages/login/login"
     },
     {
-      "path": "pages/index/index",
-      "style": {
-        "navigationBarTitleText": ""
-      }
+      "path": "pages/login/login-phone"
     },
     {
-      "path": "pages/login/login-message-code",
-      "style": {
-        "navigationBarTitleText": ""
-      }
+      "path": "pages/login/login-message-code"
+    },
+    {
+      "path": "pages/index/index"
+    },
+    {
+      "path": "pages/list/list"
+    },
+    {
+      "path": "pages/user/user"
     }
   ],
+  "tabBar": {
+    "backgroundColor": "#fff",
+    "selectedColor": "#000",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/home.png",
+        "selectedIconPath": "static/home.png"
+      },
+      {
+        "pagePath": "pages/list/list",
+        "text": "订单",
+        "iconPath": "static/list.png",
+        "selectedIconPath": "static/list.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "static/my.png",
+        "selectedIconPath": "static/my.png"
+      }
+    ]
+  },
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "navigationStyle": "custom"
   }
 }

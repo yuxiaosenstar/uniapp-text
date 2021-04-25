@@ -1,5 +1,6 @@
 <template>
   <view class="container">
+    <hd-toast />
     <view class="title">
       <text>输入验证码</text>
     </view>
@@ -9,7 +10,6 @@
     <view class="code">
       <input
         :focus="item.active === 'active'"
-        :ref="'input' + index"
         @focus="item.active = 'active'"
         @blur="item.active = ''"
         :class="item.active"
@@ -28,9 +28,11 @@
 </template>
 
 <script>
+import { sendCode } from '@/api/login'
 export default {
   data() {
     return {
+      phonenumber: '',
       count: 59,
       codeArr: [
         { value: '', active: '' },
@@ -40,12 +42,40 @@ export default {
       ]
     }
   },
+  onLoad(option) {
+    this.phonenumber = option.phonenumber
+    this.sendCode(option.phonenumber)
+  },
   mounted() {
-    // 默认第一个
+    // 默认第一个焦点
     this.codeArr[0].active = 'active'
     this.minusCount()
   },
   methods: {
+    /**
+     * 发动验证码
+     */
+    sendCode(phonenumber = this.phonenumber) {
+      this.$showToast({
+        title: '发送中...',
+        duration: 600000
+      })
+      sendCode({
+        mobile: phonenumber
+      })
+        .then(() => {
+          this.$hideToast()
+        })
+        .catch(err => {
+          this.$showToast({
+            title: err.message,
+            duration: 1500
+          })
+        })
+    },
+    /**
+     * 倒计时
+     */
     minusCount() {
       let timer = setInterval(() => {
         if (this.count === 0) {
@@ -55,7 +85,11 @@ export default {
         }
       }, 1000)
     },
+    /**
+     * 重新获取验证码
+     */
     recaptureCode() {
+      this.sendCode()
       this.count = 59
       this.minusCount()
     }
