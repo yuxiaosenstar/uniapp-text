@@ -45,7 +45,9 @@ export default {
 
 <style lang="scss" scoped>
 ._showToast {
-  position: absolute;
+  position: fixed;
+  left: 0;
+  top: 0;
   z-index: 10000;
   width: 100%;
   height: 100vh;
@@ -63,7 +65,7 @@ export default {
     box-sizing: border-box;
     padding: 30rpx;
     top: 40vh;
-    left: 290rpx;
+    left: 50%;
     transform: translate(-50%, -50%);
     color: #ffffff;
     background-color: #53565e;
