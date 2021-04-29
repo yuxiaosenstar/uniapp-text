@@ -17,6 +17,11 @@
     },
     {
       "path": "pages/user/user"
+      // #ifdef MP
+      ,"style": {
+        "navigationStyle": "custom"
+      }
+      // #endif
     }
   ],
   "tabBar": {
@@ -45,6 +50,12 @@
   },
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationStyle": "custom"
+    "navigationBarBackgroundColor": "#fff"
+    // #ifdef H5
+    ,"navigationStyle": "custom"
+    // #endif
+    // #ifdef MP
+    ,"navigationStyle": "default"
+    // #endif
   }
 }

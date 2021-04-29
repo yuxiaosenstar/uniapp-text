@@ -1,7 +1,7 @@
 /*
  * @Author: 余畅畅
  * @Date: 2021-04-25 16:38:29
- * @LastEditTime: 2021-04-25 18:02:37
+ * @LastEditTime: 2021-04-29 17:18:45
  * @LastEditors: 余畅畅
  * @Description:
  * @FilePath: \my-new-test01\src\api\login.ts
@@ -34,4 +34,13 @@ export function sendCode(params: { mobile: string }) {
       ...params
     })
     .then(res => res)
+}
+
+/**
+ * 校检验证码
+ * @param params
+ * @returns
+ */
+export function checkCode(params: { code: string; mobile: string }) {
+  return fly.post(`${apiv1}/verificationCode/checkAndLogin`, { appId, ...params }).then(res => res)
 }

@@ -63,18 +63,23 @@ export default {
      * 登录
      */
     login() {
+      uni.showLoading({
+        title: '登录中...'
+      })
       login({
         mobile: this.phonenumber,
         password: this.password
       })
         .then(res => {
+          uni.hideLoading()
           uni.switchTab({
             url: '/pages/user/user'
           })
         })
-        .catch(res => {
-          this.$showToast({
-            title: res.message
+        .catch(err => {
+          uni.showToast({
+            title: err.message,
+            icon: 'none'
           })
         })
     }

@@ -7,7 +7,7 @@ const devConfig = {
   memberId: '',
   openId: '',
   // https环境
-  baseUrl: 'https://essp-test.lhhspay.com.cn',
+  baseUrl: 'http://localhost:3000',
   // 微信的appid
   wxAppid: 'wx9d2b7509cfe7fa90'
 }

@@ -5,41 +5,27 @@
       <text>输入验证码</text>
     </view>
     <view class="phone-number">
-      <text>验证码已发送至 +86 133 8191 9377</text>
+      <text v-cloak>验证码已发送至 +86 {{ phonenumber }}</text>
     </view>
-    <view class="code">
-      <input
-        :focus="item.active === 'active'"
-        @focus="item.active = 'active'"
-        @blur="item.active = ''"
-        :class="item.active"
-        v-for="(item, index) in codeArr"
-        maxlength="1"
-        type="number"
-        v-model="item.value"
-        :key="index"
-      />
-    </view>
+    <valueCode @finish="login" />
     <view class="count-down">
-      <text v-show="count > 0">{{ count }} 秒后重新获取验证码</text>
+      <text v-show="count > 0" v-cloak>{{ count }} 秒后重新获取验证码</text>
       <text v-show="count === 0" class="recapture" @click="recaptureCode">重新获取验证码</text>
     </view>
   </view>
 </template>
 
 <script>
-import { sendCode } from '@/api/login'
+import { sendCode, checkCode } from '@/api/login'
+import valueCode from './valid-code'
 export default {
+  components: {
+    valueCode
+  },
   data() {
     return {
       phonenumber: '',
-      count: 59,
-      codeArr: [
-        { value: '', active: '' },
-        { value: '', active: '' },
-        { value: '', active: '' },
-        { value: '', active: '' }
-      ]
+      count: 59
     }
   },
   onLoad(option) {
@@ -47,8 +33,7 @@ export default {
     this.sendCode(option.phonenumber)
   },
   mounted() {
-    // 默认第一个焦点
-    this.codeArr[0].active = 'active'
+    // 开启倒计时
     this.minusCount()
   },
   methods: {
@@ -56,20 +41,22 @@ export default {
      * 发动验证码
      */
     sendCode(phonenumber = this.phonenumber) {
-      this.$showToast({
-        title: '发送中...',
-        duration: 600000
+      uni.showLoading({
+        title: '发送中...'
       })
       sendCode({
         mobile: phonenumber
       })
         .then(() => {
-          this.$hideToast()
+          uni.hideLoading()
+          uni.showToast({
+            title: '发送成功'
+          })
         })
         .catch(err => {
-          this.$showToast({
+          uni.showToast({
             title: err.message,
-            duration: 1500
+            icon: 'none'
           })
         })
     },
@@ -92,6 +79,36 @@ export default {
       this.sendCode()
       this.count = 59
       this.minusCount()
+    },
+    /**
+     * 通过验证码登录
+     */
+    login(code) {
+      uni.showLoading({
+        title: '登录中...'
+      })
+      checkCode({
+        code,
+        mobile: this.phonenumber
+      })
+        .then(res => {
+          uni.hideLoading()
+          if (res.success) {
+            uni.switchTab({
+              url: '/pages/user/user'
+            })
+          } else {
+            uni.showLoading({
+              title: res.msg
+            })
+          }
+        })
+        .catch(err => {
+          uni.showToast({
+            title: err.msg,
+            icon: 'none'
+          })
+        })
     }
   }
 }
@@ -112,31 +129,7 @@ export default {
     margin-top: 16rpx;
     font-size: 28rpx;
     color: #333;
-  }
-
-  .code {
-    margin-top: 24rpx;
-    height: 96rpx;
-    display: flex;
-    justify-content: space-between;
-
-    input {
-      flex: 1;
-      height: 100%;
-      border-bottom: 1rpx solid #ccc;
-      margin-right: 64rpx;
-      text-align: center;
-      font-size: 48rpx;
-
-      &:last-child {
-        margin-right: 0;
-      }
-
-      &.active {
-        caret-color: #fdc548;
-        border-bottom-color: #fdc548;
-      }
-    }
+    margin-bottom: 24rpx;
   }
 
   .count-down {
