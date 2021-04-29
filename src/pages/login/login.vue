@@ -5,20 +5,9 @@
       <view>欢迎使用联华鲸采</view>
       <view>团购小程序</view>
     </view>
-    <view :class="['phonenumber', 'input-box', isNumberActive ? 'active' : '']">
-      <view class="num">+86</view>
-      <input
-        @focus="isNumberActive = true"
-        @blur="isNumberActive = false"
-        v-model="phonenumber"
-        type="number"
-        placeholder="请输入手机号"
-        maxlength="11"
-      />
-      <view v-show="phonenumber" class="clear-btn" @click="clearInput('phonenumber')"></view>
-    </view>
+    <MyInput />
     <view :class="['password', 'input-box', isPassActive ? 'active' : '']">
-      <input @focus="isPassActive = true" @blur="isPassActive = false" v-model="password" :password="isPass" placeholder="请输入密码" />
+      <input @focus="password.isActive = true" @blur="password.isActive = false" v-model="password" :password="isPass" placeholder="请输入密码" />
       <view v-show="password" class="clear-btn" @click="clearInput('password')"></view>
       <view :class="['eye', isPass ? 'close' : 'open']" @click="togglePass"></view>
     </view>
@@ -36,14 +25,19 @@
 
 <script>
 import { login } from '@/api/login'
+import MyInput from './my-input.vue'
 export default {
+  components: {
+    MyInput
+  },
   data() {
     return {
       isPass: true,
-      phonenumber: '',
-      password: '',
-      isNumberActive: false,
-      isPassActive: false
+      password: {
+        value: '',
+        showClearIcon: false,
+        isActive: false
+      }
     }
   },
   methods: {
@@ -57,7 +51,7 @@ export default {
      * 清楚输入框
      */
     clearInput(input) {
-      this[input] = ''
+      this[input].value = ''
     },
     /**
      * 登录
