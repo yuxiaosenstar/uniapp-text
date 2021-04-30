@@ -4,19 +4,8 @@
       <view>欢迎使用联华鲸采</view>
       <view>团购小程序</view>
     </view>
-    <view :class="['phonenumber', 'input-box', isNumberActive ? 'active' : '']">
-      <view class="num">+86</view>
-      <input
-        maxlength="11"
-        @focus="isNumberActive = true"
-        @blur="isNumberActive = false"
-        v-model="phonenumber"
-        type="number"
-        placeholder="请输入手机号"
-      />
-      <view v-show="phonenumber" class="clear-btn" @click="clearInput('phonenumber')"></view>
-    </view>
-    <button @click="toCode" class="login-btn" :disabled="phonenumber.length < 11">获取短信验证码</button>
+    <MyNumInput @changeValue="setPhonenumber" />
+    <button @click="toCode" class="login-btn" :disabled="isDisabled">获取短信验证码</button>
     <view class="phone-code-login">
       <navigator url="./login">
         <text>账号密码登录</text>
@@ -28,115 +17,16 @@
   </view>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      isPass: true,
-      phonenumber: '',
-      isNumberActive: false
-    }
-  },
-  methods: {
-    /**
-     * 切换密码框显示
-     */
-    togglePass() {
-      this.isPass = !this.isPass
-    },
-    /**
-     * 清楚输入框
-     */
-    clearInput(input) {
-      this[input] = ''
-    },
-    /**
-     * 跳转到获取验证码页面
-     */
-    toCode() {
-      uni.navigateTo({
-        url: `../login/login-message-code?phonenumber=${this.phonenumber}`
-      })
-    }
-  }
-}
-</script>
+<script lang="ts" src="./login-phone"></script>
 
 <style lang="scss">
 .container {
   padding: 32rpx 80rpx;
 
-  input {
-    font-size: 36rpx;
-    height: 100%;
-  }
-
   .title {
     font-size: 48rpx;
     font-weight: 500;
     color: #333;
-  }
-
-  .input-box {
-    height: 96rpx;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-    position: relative;
-    box-sizing: border-box;
-
-    &.active {
-      caret-color: #fdc548;
-      border-bottom-color: #fdc548;
-    }
-
-    .clear-btn {
-      position: absolute;
-      right: 0;
-      width: 48rpx;
-      height: 48rpx;
-      background: no-repeat 100%/100% url(@/assets/close.png);
-    }
-  }
-
-  .phonenumber {
-    margin-top: 80rpx;
-    margin-bottom: 24rpx;
-    padding-left: 93rpx;
-    padding-right: 48rpx;
-    .num {
-      position: absolute;
-      left: 0;
-      font-size: 32rpx;
-      color: #fdc548;
-    }
-    input {
-      width: 100%;
-    }
-  }
-
-  .password {
-    padding-right: 96rpx;
-    input {
-      width: 100%;
-    }
-
-    .eye {
-      position: absolute;
-      right: 0;
-      width: 48rpx;
-      height: 48rpx;
-      &.open {
-        background: no-repeat 100%/100% url(@/assets/eye-open.png);
-      }
-      &.close {
-        background: no-repeat 100%/100% url(@/assets/eye-close.png);
-      }
-    }
-
-    .clear-btn {
-      right: 48rpx;
-    }
   }
 
   .login-btn {

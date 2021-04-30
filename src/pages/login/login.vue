@@ -5,8 +5,8 @@
       <view>欢迎使用联华鲸采</view>
       <view>团购小程序</view>
     </view>
-    <MyNumInput />
-    <MyPassInput />
+    <MyNumInput @changeValue="setPhonenumber" />
+    <MyPassInput @changeValue="setPassword" />
     <button @click="login" class="login-btn" :disabled="isDisabled">登录</button>
     <view class="phone-code-login">
       <navigator url="./login-phone">
@@ -19,50 +19,7 @@
   </view>
 </template>
 
-<script>
-import { login } from '@/api/login'
-import MyNumInput from './my-num-input.vue'
-import MyPassInput from './my-pass-input.vue'
-import store from '@/store'
-
-export default {
-  components: {
-    MyNumInput,
-    MyPassInput
-  },
-  methods: {
-    /**
-     * 登录
-     */
-    login() {
-      uni.showLoading({
-        title: '登录中...'
-      })
-      login({
-        mobile: this.phonenumber,
-        password: this.password
-      })
-        .then(res => {
-          uni.hideLoading()
-          uni.switchTab({
-            url: '/pages/user/user'
-          })
-        })
-        .catch(err => {
-          uni.showToast({
-            title: err.message,
-            icon: 'none'
-          })
-        })
-    }
-  },
-  computed: {
-    isDisabled() {
-      return !(store.state.phonenumber && store.state.password)
-    }
-  }
-}
-</script>
+<script lang="ts" src="./login"></script>
 
 <style lang="scss">
 .container {

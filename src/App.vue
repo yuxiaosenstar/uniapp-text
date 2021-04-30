@@ -1,9 +1,9 @@
-<script lang="ts">
+<script>
 import Vue from 'vue'
-export default Vue.extend({
+export default {
   mpType: 'app',
   onLaunch() {
-    let sysdata:any = uni.getSystemInfoSync()
+    let sysdata = uni.getSystemInfoSync()
     // #ifndef MP
     Vue.prototype.StatusBar = sysdata.statusBarHeight
     if (sysdata.platform === 'android') {
@@ -49,7 +49,7 @@ export default Vue.extend({
     console.log('App Hide')
   },
   methods: {}
-})
+}
 </script>
 
 <style lang="scss">

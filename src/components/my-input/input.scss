@@ -1,0 +1,26 @@
+input {
+  font-size: 36rpx;
+  height: 100%;
+}
+
+.input-box {
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+  box-sizing: border-box;
+
+  &.active {
+    caret-color: #fdc548;
+    border-bottom-color: #fdc548;
+  }
+
+  .clear-btn {
+    position: absolute;
+    right: 0;
+    width: 48rpx;
+    height: 48rpx;
+    background: no-repeat 100%/100% url(@/assets/close.png);
+  }
+}

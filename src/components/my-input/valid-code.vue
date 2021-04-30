@@ -1,10 +1,10 @@
 <!--
-自定义验证码输入、密码输入使用
-使用方法：
-maxlength：输入最大长度
-isPwd：是否是密码模式
-@finish：回调函数
- <validcode :maxlength="4" :isPwd="false" @finish="finish"></validcode>
+  自定义验证码输入、密码输入使用
+  使用方法：
+  maxlength：输入最大长度
+  isPwd：是否是密码模式
+  @finish：回调函数
+  <validcode :maxlength="4" :isPwd="false" @finish="finish"></validcode>
  -->
 <template>
   <view class="code-area">
@@ -58,51 +58,7 @@ isPwd：是否是密码模式
   </view>
 </template>
 
-<script>
-export default {
-  props: {
-    // 最大长度 值为4或者6
-    maxlength: {
-      type: Number,
-      default: 4
-    },
-    // 是否是密码
-    isPwd: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-      codeIndex: 1, // 下标
-      codeArr: [],
-      val: '' // 输入框的值
-    }
-  },
-  methods: {
-    // 取值
-    getVal(e) {
-      let { value } = e.detail
-      this.val = value
-      // console.log('验证码:', value);
-      let arr = value.split('')
-      this.codeIndex = arr.length + 1
-      this.codeArr = arr
-      // console.log(this.codeIndex, this.pwdArr);
-      if (this.codeIndex > Number(this.maxlength)) {
-        // 输入完成
-        this.$emit('finish', this.codeArr.join(''))
-      }
-    },
-    // 清除验证码或者密码
-    clear() {
-      this.codeIndex = 1
-      this.codeArr = []
-      this.val = ''
-    }
-  }
-}
-</script>
+<script lang="ts" src="./valid-code"></script>
 
 <style lang="scss">
 .code-area {
