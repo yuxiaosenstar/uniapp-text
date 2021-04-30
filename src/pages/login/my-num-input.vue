@@ -1,16 +1,18 @@
 <template>
   <view :class="['phonenumber', 'input-box', isActive ? 'active' : '']">
     <view class="num">+86</view>
-    <input @focus="onFocus" @blur="onBulr" v-model="value" type="number" placeholder="请输入手机号" maxlength="11" />
-    <view v-show="showClearIcon" class="clear-btn" @click="clearInput()"></view>
+    <input @focus="onFocus" @blur="onBulr" @input="onInput" v-model="value" type="number" placeholder="请输入手机号" maxlength="11" />
+    <view v-show="showClearIcon" class="clear-btn" @click="clearInput"></view>
   </view>
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   data() {
     return {
-      value: '',
+      value: store.state.phonenumber,
       showClearIcon: false,
       isActive: false
     }
@@ -24,16 +26,34 @@ export default {
       this.showClearIcon = false
     },
     onBulr() {
-      this.isActive = false
+      // 优先触发其他事件
+      setTimeout(() => {
+        this.isActive = false
+        this.showClearIcon = false
+      })
     },
     onFocus() {
       this.isActive = true
+      this.showClearIcon = !!this.value
+    },
+    onInput() {
+      this.showClearIcon = !!this.value
+    }
+  },
+  watch: {
+    value() {
+      store.commit('setPhoneNumber', this.value)
     }
   }
 }
 </script>
 
 <style lang="scss">
+input {
+  font-size: 36rpx;
+  height: 100%;
+}
+
 .input-box {
   height: 96rpx;
   display: flex;

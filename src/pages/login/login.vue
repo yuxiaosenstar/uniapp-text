@@ -5,13 +5,9 @@
       <view>欢迎使用联华鲸采</view>
       <view>团购小程序</view>
     </view>
-    <MyInput />
-    <view :class="['password', 'input-box', isPassActive ? 'active' : '']">
-      <input @focus="password.isActive = true" @blur="password.isActive = false" v-model="password" :password="isPass" placeholder="请输入密码" />
-      <view v-show="password" class="clear-btn" @click="clearInput('password')"></view>
-      <view :class="['eye', isPass ? 'close' : 'open']" @click="togglePass"></view>
-    </view>
-    <button @click="login" class="login-btn" :disabled="!(phonenumber && password)">登录</button>
+    <MyNumInput />
+    <MyPassInput />
+    <button @click="login" class="login-btn" :disabled="isDisabled">登录</button>
     <view class="phone-code-login">
       <navigator url="./login-phone">
         <text>手机验证码登录</text>
@@ -25,34 +21,16 @@
 
 <script>
 import { login } from '@/api/login'
-import MyInput from './my-input.vue'
+import MyNumInput from './my-num-input.vue'
+import MyPassInput from './my-pass-input.vue'
+import store from '@/store'
+
 export default {
   components: {
-    MyInput
-  },
-  data() {
-    return {
-      isPass: true,
-      password: {
-        value: '',
-        showClearIcon: false,
-        isActive: false
-      }
-    }
+    MyNumInput,
+    MyPassInput
   },
   methods: {
-    /**
-     * 切换密码框显示
-     */
-    togglePass() {
-      this.isPass = !this.isPass
-    },
-    /**
-     * 清楚输入框
-     */
-    clearInput(input) {
-      this[input].value = ''
-    },
     /**
      * 登录
      */
@@ -77,6 +55,11 @@ export default {
           })
         })
     }
+  },
+  computed: {
+    isDisabled() {
+      return !(store.state.phonenumber && store.state.password)
+    }
   }
 }
 </script>
@@ -85,77 +68,10 @@ export default {
 .container {
   padding: 32rpx 80rpx;
 
-  input {
-    font-size: 36rpx;
-    height: 100%;
-  }
-
   .title {
     font-size: 48rpx;
     font-weight: 500;
     color: #333;
-  }
-
-  .input-box {
-    height: 96rpx;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-    position: relative;
-    box-sizing: border-box;
-
-    &.active {
-      caret-color: #fdc548;
-      border-bottom-color: #fdc548;
-    }
-
-    .clear-btn {
-      position: absolute;
-      right: 0;
-      width: 48rpx;
-      height: 48rpx;
-      background: no-repeat 100%/100% url(@/assets/close.png);
-    }
-  }
-
-  .phonenumber {
-    margin-top: 80rpx;
-    margin-bottom: 24rpx;
-    padding-left: 93rpx;
-    padding-right: 48rpx;
-    .num {
-      position: absolute;
-      left: 0;
-      font-size: 32rpx;
-      color: #fdc548;
-    }
-    input {
-      width: 100%;
-    }
-  }
-
-  .password {
-    padding-right: 96rpx;
-    input {
-      width: 100%;
-    }
-
-    .eye {
-      position: absolute;
-      right: 0;
-      width: 48rpx;
-      height: 48rpx;
-      &.open {
-        background: no-repeat 100%/100% url(@/assets/eye-open.png);
-      }
-      &.close {
-        background: no-repeat 100%/100% url(@/assets/eye-close.png);
-      }
-    }
-
-    .clear-btn {
-      right: 48rpx;
-    }
   }
 
   .login-btn {

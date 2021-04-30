@@ -8,7 +8,9 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     appId: '',
-    tenant: ''
+    tenant: '',
+    phonenumber: '',
+    password: ''
   },
   mutations: {
     setAppId(state, data: string) {
@@ -16,6 +18,12 @@ const store = new Vuex.Store({
     },
     setTenant(state, data: string) {
       state.tenant = data
+    },
+    setPhoneNumber(state, data: string) {
+      state.phonenumber = data
+    },
+    setPassword(state, data: string) {
+      state.password = data
     }
   },
   getters: {},
@@ -25,6 +33,12 @@ const store = new Vuex.Store({
     },
     setTenant(context: { commit: Commit }, data: any) {
       context.commit('setTenant', data)
+    },
+    setPhoneNumber(context: { commit: Commit }, data: any) {
+      context.commit('setPhoneNumber', data)
+    },
+    setPassword(context: { commit: Commit }, data: any) {
+      context.commit('setPassword', data)
     }
   }
 })
