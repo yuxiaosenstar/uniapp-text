@@ -1,10 +1,10 @@
 /*
  * @Author: 余畅畅
  * @Date: 2021-04-30 13:15:27
- * @LastEditTime: 2021-04-30 17:09:44
+ * @LastEditTime: 2021-05-06 10:13:42
  * @LastEditors: 余畅畅
  * @Description:
- * @FilePath: \my-new-test01\src\pages\login\login.ts
+ * @FilePath: \new-projects\my-new-test01\src\pages\login\login.ts
  *
  */
 
@@ -40,10 +40,13 @@ export default class Login extends Vue {
       mobile: this.phonenumber,
       password: this.password
     })
-      .then(res => {
+      .then(data => {
         uni.hideLoading()
+        uni.setStorageSync('username', data.name)
+        uni.setStorageSync('address', data.customer.name)
+        // uni.switchTab不能传递参数，所以使用storage传递信息
         uni.switchTab({
-          url: '/pages/user/user'
+          url: `/pages/user/user`
         })
       })
       .catch(err => {

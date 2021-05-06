@@ -8,14 +8,14 @@
         <image class="logo" src="/static/author.png" />
         <view class="info">
           <view class="row1">
-            <text class="name">鲸小采</text>
+            <text class="name">{{ username }}</text>
             <view class="detail">
               <text>个人信息</text>
               <view class="btn"></view>
             </view>
           </view>
           <view class="row2">
-            <text>上海海鼎信息工程股份有限公司</text>
+            <text>{{ address }}</text>
           </view>
         </view>
       </view>
@@ -80,9 +80,7 @@
   </view>
 </template>
 
-<script>
-export default {}
-</script>
+<script lang="ts" src="./user"></script>
 
 <style lang="scss">
 page {

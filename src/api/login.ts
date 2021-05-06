@@ -1,10 +1,10 @@
 /*
  * @Author: 余畅畅
  * @Date: 2021-04-25 16:38:29
- * @LastEditTime: 2021-04-29 17:18:45
+ * @LastEditTime: 2021-05-06 10:09:48
  * @LastEditors: 余畅畅
  * @Description:
- * @FilePath: \my-new-test01\src\api\login.ts
+ * @FilePath: \new-projects\my-new-test01\src\api\login.ts
  *
  */
 import fly from '@/network/fly'
@@ -19,7 +19,9 @@ const apiv1 = `/v1/${tenant}/gp/app`
  * @returns
  */
 export function login(params: { mobile: string; password: string }) {
-  return fly.post(`${apiv1}/user/login`, { appId, ...params }).then(res => res)
+  return fly
+    .post(`${apiv1}/user/login`, { appId, ...params })
+    .then(res => res.data)
 }
 
 /**
