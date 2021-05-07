@@ -7,7 +7,7 @@ const devConfig = {
   memberId: '',
   openId: '',
   // https环境
-  baseUrl: 'https://yuxiaosen.top:3000',
+  baseUrl: 'https://www.yuxiaosen.top:3000',
   // 微信的appid
   wxAppid: 'wx9d2b7509cfe7fa90'
 }
