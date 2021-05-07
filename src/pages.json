@@ -16,12 +16,12 @@
       "path": "pages/list/list"
     },
     {
-      "path": "pages/user/user"
       // #ifdef MP
-      ,"style": {
+      "style": {
         "navigationStyle": "custom"
-      }
+      },
       // #endif
+      "path": "pages/user/user"
     }
   ],
   "tabBar": {
@@ -49,13 +49,13 @@
     ]
   },
   "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarBackgroundColor": "#fff"
     // #ifdef H5
-    ,"navigationStyle": "custom"
+    "navigationStyle": "custom",
     // #endif
     // #ifdef MP
-    ,"navigationStyle": "default"
+    "navigationStyle": "default",
     // #endif
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#fff"
   }
 }
